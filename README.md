@@ -19,4 +19,4 @@ For dataframe two: (Resulting tidy dataset: dt2)
 --Group resulting dataframe by subject and activity
 --Calculate mean of every column by grouping
 
-  
+Please view "variablenames.txt" file for reference of column names present in df and dt2 datasets.
