@@ -33,12 +33,14 @@ colnames(df) <- colnames(df) %>%
   gsub(pattern="Body",replacement="body.") %>%
   gsub(pattern="Acc",replacement="acceleration.") %>%
   gsub(pattern="Gravity",replacement="gravity.") %>%
-  gsub(pattern="mag",replacement="magnitude.") %>%
   gsub(pattern="Gyro",replacement="gyroscope.") %>%
   gsub(pattern="-",replacement="") %>%
   gsub(pattern=",",replacement=".") %>%
   gsub(pattern="\\.$",replacement="") %>%
-  tolower()
+  tolower() %>%
+  gsub(pattern="mag",replacement="magnitude.") %>%
+  gsub(pattern="jerk",replacement="jerk.")
+
 ##Load subjects data
 train_sub <- read.table("./UCI HAR Dataset/train/subject_train.txt")
 test_sub <- read.table("./UCI HAR Dataset/test/subject_test.txt")
