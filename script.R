@@ -2,7 +2,7 @@
 url <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
 download.file(url,"data.zip",method="curl")
 ##Unzip in working directory
-unizip("data.zip")
+unzip("data.zip")
 ##Loads tables 
 train_x <- read.table("./UCI HAR Dataset/train/X_train.txt")
 train_y <- read.table("./UCI HAR Dataset/train/y_train.txt")
@@ -25,13 +25,18 @@ library(dplyr)
 df <- select(df,matches("mean[^F]|std|activity"))
 ##Unfold abbreviations, separate word with periods, lowerize words and remove (),-
 colnames(df) <- colnames(df) %>%
+  gsub(pattern="\\(\\)",replacement=".") %>%
+  gsub(pattern="\\(",replacement=".") %>%
+  gsub(pattern="\\)",replacement=".") %>%
   gsub(pattern="^t",replacement="total.") %>%
+  gsub(pattern="^f",replacement="estimated.") %>%
   gsub(pattern="Body",replacement="body.") %>%
   gsub(pattern="Acc",replacement="acceleration.") %>%
   gsub(pattern="Gravity",replacement="gravity.") %>%
+  gsub(pattern="mag",replacement="magnitude.") %>%
   gsub(pattern="Gyro",replacement="gyroscope.") %>%
   gsub(pattern="-",replacement="") %>%
-  gsub(pattern="\\(\\)",replacement=".") %>%
+  gsub(pattern=",",replacement=".") %>%
   gsub(pattern="\\.$",replacement="") %>%
   tolower()
 ##Load subjects data
@@ -45,4 +50,7 @@ colnames(dt2)<-c("subject",colnames(df))
 dt2 <- group_by(dt2,subject,activity)
 ##Summarize all columns
 dt2<- summarize_all(dt2,mean)
+#Output
+write.table(dt2,"tidydataset.txt",row.name=FALSE)
+write.table(colnames(dt2),"variablenames.txt")
 
