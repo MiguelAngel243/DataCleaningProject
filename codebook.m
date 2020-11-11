@@ -22,6 +22,12 @@ Dataframe df:
 - Includes activity and 73 variables related to mean and standard deviation of the original measurements
 - Includes 10299 records 
 
+Dataframe dt2:
+======================================
+
+- Here all 73 variables present in df dataframe are summarized by mean after his values are grouped by subject and activity.
+
+
 Variables:
 ======================================
 See the adjunt file "variablenames.txt"
